@@ -11,7 +11,7 @@
     <modules>
         <module>Client</module>
         <module>Server</module>
-        <module>network</module>
+        <module>NetWork</module>
     </modules>
 
     <properties>
