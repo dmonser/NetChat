@@ -11,6 +11,10 @@ public class Log {
     public final String pathToModule;
     private final File file;
 
+    public File getFile() {
+        return file;
+    }
+
     public Log(String pathToModule) {
         this.pathToModule = pathToModule;
         file = new File(PATH_TO_PROJECT + pathToModule, LOG_FILE_NAME);
