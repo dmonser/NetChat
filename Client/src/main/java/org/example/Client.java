@@ -5,8 +5,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.log.Log;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -45,6 +43,7 @@ public class Client implements TCPConnectionListener {
                 break;
             }
             connection.sendString(nikName + ": " + msg);
+            log.writeLog(nikName + ": " + msg);
         }
     }
 
@@ -64,6 +63,7 @@ public class Client implements TCPConnectionListener {
     @Override
     public void onReceiveString(TCPConnection tcpConnection, String value) {
         System.out.println(value);
+        log.writeLog(value);
     }
 
     @Override
