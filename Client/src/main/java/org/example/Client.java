@@ -7,6 +7,8 @@ import org.log.Log;
 
 import java.io.*;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Scanner;
 
 public class Client implements TCPConnectionListener {
@@ -16,9 +18,9 @@ public class Client implements TCPConnectionListener {
     public static String serverIP;
     public static long serverPort;
     private static final String PATH_TO_SETTINGS = Paths.get("").toAbsolutePath().toString() +
-            "/Client/src/main/java/org/example/settings.json";
+            "/Client/src/main/resources/settings.json";
     public static String nikName;
-    private static final Log log = new Log("/Client/src/main/java/");
+    private static final Log log = new Log("/Client/src/main/resources/");
 
     public static void main(String[] args) {
         Client client = new Client();
@@ -72,7 +74,7 @@ public class Client implements TCPConnectionListener {
 
     @Override
     public void onReceiveString(TCPConnection tcpConnection, String value) {
-        System.out.println(value);
+        System.out.println(currentDateAndTime() + value);
         log.writeLog(value);
     }
 
@@ -86,4 +88,7 @@ public class Client implements TCPConnectionListener {
         System.out.println("Connection exception: " + e);
     }
 
+    private static String currentDateAndTime() {
+        return new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()) + " ";
+    }
 }

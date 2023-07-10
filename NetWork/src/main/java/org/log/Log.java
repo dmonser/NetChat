@@ -46,6 +46,6 @@ public class Log {
     }
 
     private static String currentDateAndTime() {
-        return new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()) + ": ";
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()) + ": ";
     }
 }

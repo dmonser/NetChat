@@ -5,7 +5,9 @@ import org.log.Log;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Server implements TCPConnectionListener {
 
@@ -15,7 +17,7 @@ public class Server implements TCPConnectionListener {
         server.start();
     }
 
-    private final Log log = new Log("/Server/src/main/java/");
+    private final Log log = new Log("/Server/src/main/resources/");
     private final ArrayList<TCPConnection> connections = new ArrayList<>();
 
     private Server() {
@@ -39,7 +41,7 @@ public class Server implements TCPConnectionListener {
     }
 
     private void sendToAllConnections(String value) {
-        System.out.println(value);
+        System.out.println(currentDateAndTime() + value);
         log.writeLog(value);
         for (TCPConnection connection : connections) {
             connection.sendString(value);
@@ -70,5 +72,7 @@ public class Server implements TCPConnectionListener {
         System.out.println("TCPConnection exception: " + e);
     }
 
-
+    private static String currentDateAndTime() {
+        return new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()) + " ";
+    }
 }
