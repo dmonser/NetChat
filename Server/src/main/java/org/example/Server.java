@@ -11,16 +11,21 @@ public class Server implements TCPConnectionListener {
 
     public static void main(String[] args) {
         System.out.println(Paths.get("").toAbsolutePath().toString());
-        new Server();
+        Server server = new Server();
+        server.start();
     }
 
     private final Log log = new Log("/Server/src/main/java/");
-
     private final ArrayList<TCPConnection> connections = new ArrayList<>();
 
     private Server() {
+
+    }
+
+    public void start() {
         System.out.println("Server running...");
-        try (ServerSocket serverSocket = new ServerSocket(8189)) {
+        int socket = 8189;
+        try (ServerSocket serverSocket = new ServerSocket(socket)) {
             while (true) {
                 try {
                     new TCPConnection(this, serverSocket.accept());

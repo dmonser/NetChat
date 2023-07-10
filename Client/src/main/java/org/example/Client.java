@@ -21,6 +21,11 @@ public class Client implements TCPConnectionListener {
     private static final Log log = new Log("/Client/src/main/java/");
 
     public static void main(String[] args) {
+        Client client = new Client();
+        client.start();
+    }
+
+    public void start() {
         try {
             Object obj = parser.parse(new FileReader(PATH_TO_SETTINGS));
             JSONObject jsonObject = (JSONObject) obj;
@@ -33,7 +38,12 @@ public class Client implements TCPConnectionListener {
         System.out.print("Введите отображаемое в чате имя: ");
         nikName = scanner.nextLine();
 
-        new Client();
+//        new Client();
+        try {
+            connection = new TCPConnection(this, serverIP, (int) serverPort);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         while (true) {
             String msg = scanner.nextLine();
@@ -48,11 +58,11 @@ public class Client implements TCPConnectionListener {
     }
 
     private Client() {
-        try {
-            connection = new TCPConnection(this, serverIP, (int) serverPort);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            connection = new TCPConnection(this, serverIP, (int) serverPort);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     @Override
