@@ -20,7 +20,7 @@ public class Server implements TCPConnectionListener {
     private final Log log = new Log("/Server/src/main/resources/");
     private final ArrayList<TCPConnection> connections = new ArrayList<>();
 
-    private Server() {
+    public Server() {
 
     }
 

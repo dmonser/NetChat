@@ -17,7 +17,9 @@ public class Client implements TCPConnectionListener {
     private static TCPConnection connection;
     public static String serverIP;
     public static long serverPort;
-    private static final String PATH_TO_SETTINGS = Paths.get("").toAbsolutePath().toString() +
+//    private static final String PATH_TO_SETTINGS = Paths.get("").toAbsolutePath().toString() +
+//            "/Client/src/main/resources/settings.json";
+    private static final String PATH_TO_SETTINGS = System.getProperty("user.dir") +
             "/Client/src/main/resources/settings.json";
     public static String nikName;
     private static final Log log = new Log("/Client/src/main/resources/");
@@ -28,19 +30,11 @@ public class Client implements TCPConnectionListener {
     }
 
     public void start() {
-        try {
-            Object obj = parser.parse(new FileReader(PATH_TO_SETTINGS));
-            JSONObject jsonObject = (JSONObject) obj;
-            serverIP = (String) jsonObject.get("serverIP");
-            serverPort = (Long) jsonObject.get("serverPort");
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
+        parseConfig();
 
         System.out.print("Введите отображаемое в чате имя: ");
         nikName = scanner.nextLine();
 
-//        new Client();
         try {
             connection = new TCPConnection(this, serverIP, (int) serverPort);
         } catch (IOException e) {
@@ -59,12 +53,19 @@ public class Client implements TCPConnectionListener {
         }
     }
 
-    private Client() {
-//        try {
-//            connection = new TCPConnection(this, serverIP, (int) serverPort);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+    public void parseConfig() {
+        try {
+            Object obj = parser.parse(new FileReader(PATH_TO_SETTINGS));
+            JSONObject jsonObject = (JSONObject) obj;
+            serverIP = (String) jsonObject.get("serverIP");
+            serverPort = (Long) jsonObject.get("serverPort");
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Client() {
+
     }
 
     @Override
